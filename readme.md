@@ -1,5 +1,5 @@
 # Ajou University MDC Department Computer programming assignment
-### Readme File Language: Korean
-## hw1-¼ºÀû°ü¸® ÇÁ·Î±×·¥ v1.0
-## hw2-»ùÇÃµéÀÇ ÇÕ, Æò±Õ, ºĞ»ê, Ç¥ÁØÆíÂ÷ Ãâ·Â
-## hw3-±Ş¿©°ü¸® ÇÁ·Î±×·¥
+
+## hw1-ì„±ì ê´€ë¦¬ í”„ë¡œê·¸ë¨ v1.0
+## hw2-ìƒ˜í”Œë“¤ì˜ í•©, í‰ê· , ë¶„ì‚°, í‘œì¤€í¸ì°¨ ì¶œë ¥
+## hw3-ê¸‰ì—¬ê´€ë¦¬ í”„ë¡œê·¸ë¨
