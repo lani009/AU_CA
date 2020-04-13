@@ -65,12 +65,12 @@ public class Account {
      * 계좌에 money만큼 출금한다
      * @param money 금액
      */
-    public void widthdrawMoney(int money) {
+    public void withdrawMoney(int money) {
         balance -= money;
     }
     
     @Override
     public String toString() {
-    	return String.format("%s %3s     %d", getAccountNumber(), getOwner(), getBalance());
+    	return String.format("%s %3s\t%d", getAccountNumber(), getOwner(), getBalance());
     }
 }

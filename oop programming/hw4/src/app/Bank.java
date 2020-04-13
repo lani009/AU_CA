@@ -74,7 +74,7 @@ public class Bank {
                 if(money > i.getBalance()) {
                     return 1;   //출금할 금액이 잔고보다 많을 때
                 }
-                i.widthdrawMoney(money);
+                i.withdrawMoney(money);
                 return 0;   //정상 리턴 코드
             }
         }

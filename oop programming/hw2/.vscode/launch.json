@@ -1,0 +1,40 @@
+{
+    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+    // 기존 특성에 대한 설명을 보려면 가리킵니다.
+    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SalaryManager",
+            "request": "launch",
+            "mainClass": "org.lani.SalaryManager",
+            "projectName": "hw2"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SalaryManager<hw2>",
+            "request": "launch",
+            "mainClass": "hw2/org.lani.SalaryManager",
+            "projectName": "hw2"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BankTest",
+            "request": "launch",
+            "mainClass": "app.BankTest"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BankTest(1)",
+            "request": "launch",
+            "mainClass": "assignment04.BankTest"
+        }
+    ]
+}
