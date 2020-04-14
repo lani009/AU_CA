@@ -54,8 +54,11 @@ public class SalaryManager {
         Employee[] employees = new Employee[length];    //Employee를 담는 배열 선언.
         //5명 직원의 정보를 초기화 한다.
         for (int i = 0; i < employees.length; i++) {
-            employees[i] = new Employee(inputName(), inputType().toInt(), inputSalary());  //급여 초기화
-            System.out.println();   //한줄 띄움
+            employees[i] = new Employee()
+                            .setName(inputName())   //이름 초기화
+                            .setType(inputType().toInt())   //직급 초기화 <- EnumType을 int로 변환
+                            .setSalary(inputSalary());  //급여 초기화
+            
         }
         return employees;
     }
@@ -77,11 +80,11 @@ public class SalaryManager {
                 TypeEnum type; // 진급하게 될 직급
                 TypeEnum originType = TypeEnum.getEnum(i.getType()); // 원래의 직급
                 type = inputType();  //직급을 입력받는다.
-                System.out.printf("%s님이 %s에서 %s로 진급했습니다.\n", i.getName(), originType, type);
+                System.out.printf("%s님이 %s에서 %s로 진급했습니다.", i.getName(), originType, type);
                 return; // 메소드 종료
             }
         }
-        System.out.printf("%s 직원이 없습니다.", name);  //for문을 다 돌았을 경우 -> 입력받은 직원이 존재하지 않는 것.
+        System.out.printf("%s에 해당하는 직원이 없습니다.", name);  //for문을 다 돌았을 경우 -> 입력받은 직원이 존재하지 않는 것.
     }
 
     /**
@@ -105,7 +108,7 @@ public class SalaryManager {
      * @return name 이름
      */
     public static String inputName() {
-        System.out.print("이름: ");
+        System.out.println("이름: ");
         return key.next();  //입력 받은 String을 return
     }
 
@@ -116,7 +119,7 @@ public class SalaryManager {
     public static TypeEnum inputType() {
         //while문을 통해 제대로 입력할 때 까지 계속해서 입력을 받는다. (예외처리)
         while(true) {
-            System.out.print("직급: ");
+            System.out.println("직급: ");
             try {
                 if(key.hasNextInt()) {
                     // 입력받은게 int형 인 경우
@@ -136,7 +139,7 @@ public class SalaryManager {
     public static double inputSalary() {
         // while문을 통해 제대로 입력할 떄 까지 계속해서 입력을 받는다. (예외처리)
         while(true) {
-            System.out.print("급여:");
+            System.out.println("급여:");
             double salary = key.nextDouble();
             if(salary <= 0) {
                 // 급여가 0 이하인 경우

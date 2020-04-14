@@ -6,32 +6,21 @@ public class Employee {
     private double salary;  //연봉
 
     /**
-     * 생성자를 통해 인스턴스 변수 초기화
-     * @param name 이름
-     * @param type 직급
-     * @param salary 연봉
-     */
-    public Employee(String name, int type, double salary) {
-        this.name = name;
-        this.type = type;
-        this.salary = salary;
-    }
-
-    public Employee() { }   //setter를 통해 인스턴스 변수를 초기화 하는 경우.
-
-    /**
      * @param name 이름
      */
-    public void setName(String name) {
+    public Employee setName(String name) {
         this.name = name;   //이름 초기화
+        return this;    //자신의 참조값 리턴
     }
 
-    public void setType(int type) {
+    public Employee setType(int type) {
         this.type = type;   //직급 초기화
+        return this;    //자신의 참조값 리턴
     }
 
-    public void setSalary(double salary) {
+    public Employee setSalary(double salary) {
         this.salary = salary;   //연봉 초기화
+        return this;    //자신의 참조값 리턴
     }
 
     public String getName() {
