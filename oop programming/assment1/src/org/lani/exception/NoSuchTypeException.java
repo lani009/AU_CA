@@ -9,6 +9,6 @@ public class NoSuchTypeException extends Exception{
         super(msg);
     }
     public NoSuchTypeException() {
-        
+        //msg가 없을 경우
     }
 }

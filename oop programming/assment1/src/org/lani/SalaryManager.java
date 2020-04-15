@@ -17,10 +17,13 @@ public class SalaryManager {
         employees = initEmployeeArray(NUM_EMPLOYEES); // 직원들의 정보를 초기화
         printRealMonthlySalary(employees);
 
-        promoteEmployee(employees);
+        do {
+            promoteEmployee(employees);
 
-        printRealMonthlySalary(employees);
-
+            printRealMonthlySalary(employees);
+            System.out.println("계속하시겠습니까?(Y/N)");
+        } while (key.next().toUpperCase().equals("Y")); //대소문자 구분없이 y일 경우 계속. n일 경우 프로그램 종료
+        System.out.println("프로그램을 종료합니다.");
     }
 
     /**

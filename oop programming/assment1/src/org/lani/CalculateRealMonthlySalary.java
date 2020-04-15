@@ -1,5 +1,8 @@
 package org.lani;
 
+/**
+ * 세금 등을 고려하여 실제 수령받는 월급을 계산한다.
+ */
 public class CalculateRealMonthlySalary {
     private Employee employee;
 
@@ -59,8 +62,8 @@ public class CalculateRealMonthlySalary {
         return getAnnualSalary() * 0.05;    //건강보험료 계산 후 리턴
     }
 
-    @Override
+    @Override   //오버리이드 명시
     public String toString() {
-        return String.format("%s = %f", employee.getName(), getRealMonthlySalary());
+        return String.format("%s = %f", employee.getName(), getRealMonthlySalary());    //"이름" = "실 수령 월급" 형식으로 리턴
     }
 }
