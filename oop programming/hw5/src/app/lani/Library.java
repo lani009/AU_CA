@@ -51,9 +51,9 @@ public class Library {
      * 책의 등록번호와 제목을 입력 받고 이에 해당하는 책을 리턴한다.
      * @return book 책
      */
-    public Book searchBook(String bookId, String bookTitle) {
+    public Book searchBook(String bookID, String bookTitle) {
         for (Book book : bookList) {
-            if(book.equals(bookId, bookTitle)) {
+            if(book.equals(bookID, bookTitle)) {
                 return book;    //등록번호와 제목이 일치하는 책을 리턴
             }
         }
@@ -73,6 +73,7 @@ public class Library {
         if(bookToBorrow.getStatus()) {
             //책을 빌리고, 정상적으로 진행되었는지 확인한다.
             if(student.borrowBook(bookToBorrow)) {
+                bookToBorrow.setStatus(false);
                 return;
             } else {
                 //2권 이상 대출하려는 경우
@@ -99,6 +100,7 @@ public class Library {
         Book bookToReturn = searchBook(bookId, bookTitle);
         if(student.returnBook(bookToReturn)) {
             //정상적인 반납
+            bookToReturn.setStatus(true);
         } else {
             throw new ReturnException("해당 도서를 대출한 내역이 없습니다.");
         }

@@ -11,16 +11,16 @@ public class LibraryTest {
     static Library library;
     public static void main(String[] args) {
         ArrayList<Book> bookList = new ArrayList<Book>();
-        bookList.add(new Book("book1", "111"));
-        bookList.add(new Book("book2", "222"));
-        bookList.add(new Book("book3", "333"));
-        bookList.add(new Book("book4", "444"));
-        bookList.add(new Book("book5", "555"));
+        bookList.add(new Book("111", "book1"));
+        bookList.add(new Book("222", "book2"));
+        bookList.add(new Book("333", "book3"));
+        bookList.add(new Book("444", "book4"));
+        bookList.add(new Book("555", "book5"));
 
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         adminList.add(new Admin("12345", "asdf11"));
 
-        library = new Library(bookList, adminList); //책, 어드민 set하고 Library 객체 생성
+        library = new Library(bookList, adminList); //책, 어드민을 set하고 Library 객체 생성
 
         while(true) {
             System.out.println("---------------");
@@ -87,6 +87,7 @@ public class LibraryTest {
                         library.returnBook(student, bookID, bookTitle); //책을 반납한다.
                         System.out.println("정상적으로 반납되었습니다.");   //Exception이 발생하지 않았다면 정상적 반납
                     } catch (ReturnException e) {
+                        //에러 메시지를 출력한다.
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -105,7 +106,7 @@ public class LibraryTest {
         System.out.print("PW를 입력하세요 ");
         String pw = key.next();
 
-        Admin admin = library.adminLogin(id, pw);
+        Admin admin = library.adminLogin(id, pw);   //존재하지 않는 계정일 경우 null을 리턴한다.
         if(admin == null) {
             System.out.println("존재하지 않는 ID이거나, PW가 잘못되었습니다.");
             return;
@@ -123,7 +124,7 @@ public class LibraryTest {
                 case 1:
                     System.out.print("등록하려는 학생의 학번을 입력하세요 ");
                     studentID = key.next();
-                    System.out.print("등록하려는 학생의 pw를 입력하세요");
+                    System.out.print("등록하려는 학생의 pw를 입력하세요 ");
                     studentPW = key.next();
     
                     library.insertStudent(studentID, studentPW);    //id와 pw를 전달하여 student를 등록시킨다.
