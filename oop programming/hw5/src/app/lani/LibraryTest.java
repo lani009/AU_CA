@@ -1,11 +1,26 @@
 package app.lani;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import app.lani.exception.BorrowException;
+import app.lani.exception.ReturnException;
 
 public class LibraryTest {
     static Scanner key = new Scanner(System.in);
-    static Library library = new Library();
+    static Library library;
     public static void main(String[] args) {
+        ArrayList<Book> bookList = new ArrayList<Book>();
+        bookList.add(new Book("book1", "111"));
+        bookList.add(new Book("book2", "222"));
+        bookList.add(new Book("book3", "333"));
+        bookList.add(new Book("book4", "444"));
+        bookList.add(new Book("book5", "555"));
+
+        ArrayList<Admin> adminList = new ArrayList<Admin>();
+        adminList.add(new Admin("12345", "asdf11"));
+
+        library = new Library(bookList, adminList); //책, 어드민 set하고 Library 객체 생성
 
         while(true) {
             System.out.println("---------------");
@@ -55,8 +70,12 @@ public class LibraryTest {
                     bookID = key.next();
                     System.out.print("대출하려는 도서명을 입력하세요 ");
                     bookTitle = key.next();
-                    library.borrowBook(student, bookID, bookTitle);
-                    System.out.println("정상적으로 대출되었습니다.");
+                    try {
+                        library.borrowBook(student, bookID, bookTitle); //책을 빌린다.
+                        System.out.println("정상적으로 대출되었습니다.");   //Exception이 발생하지 않았다면 정상적 대출
+                    } catch (BorrowException e) {
+                        System.out.println(e.getMessage()); //exception의 원인 출력
+                    }                    
                     break;
             
                 case 2:
@@ -64,8 +83,12 @@ public class LibraryTest {
                     bookID = key.next();
                     System.out.print("반납하려는 도서명을 입력하세요 ");
                     bookTitle = key.next();
-                    library.returnBook(student, bookID, bookTitle);
-                    System.out.println("정상적으로 반납되었습니다.");
+                    try {
+                        library.returnBook(student, bookID, bookTitle); //책을 반납한다.
+                        System.out.println("정상적으로 반납되었습니다.");   //Exception이 발생하지 않았다면 정상적 반납
+                    } catch (ReturnException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case 3:
