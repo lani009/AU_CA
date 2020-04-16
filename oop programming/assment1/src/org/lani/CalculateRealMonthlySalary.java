@@ -6,8 +6,12 @@ package org.lani;
 public class CalculateRealMonthlySalary {
     private Employee employee;
 
+    public CalculateRealMonthlySalary(Employee employee) {
+        this.employee = employee;   //employee 초기화
+    }
+
     public CalculateRealMonthlySalary() {
-        employee = null;    //employee를 null로 초기화
+        this(null); //employee를 null로 초기화
     }
 
     public void setEmployee(Employee employee) {

@@ -6,7 +6,6 @@ import org.lani.exception.NoSuchTypeException;
  * CalculateAnnualSalart클래스는 Employee의 인상된 연봉을 계산할 때 쓴다.
  */
 public class CalculateAnnualSalary {
-
     /**
      * employee에 따른 인상된 연봉을 계산한다.
      * @param employee Employee 인스턴스
