@@ -30,28 +30,6 @@ public class SalaryManager {
      * @param length 직원 수
      */
     public static Employee[] initEmployeeArray(int length) {
-
-        // employee[0] = new Employee()
-        // .setName("신동엽")
-        // .setType(5)
-        // .setSalary(50000000);
-        // employee[1] = new Employee()
-        // .setName("송가인")
-        // .setType(4)
-        // .setSalary(90000000);
-        // employee[2] = new Employee()
-        // .setName("박나래")
-        // .setType(3)
-        // .setSalary(70000000);
-        // employee[3] = new Employee()
-        // .setName("강호동")
-        // .setType(2)
-        // .setSalary(80000000);
-        // employee[4] = new Employee()
-        // .setName("유재석")
-        // .setType(1)
-        // .setSalary(100000000);
-
         System.out.println("직원들의 정보를 입력해 주세요");
         Employee[] employees = new Employee[length];    //Employee를 담는 배열 선언.
         //5명 직원의 정보를 초기화 한다.
