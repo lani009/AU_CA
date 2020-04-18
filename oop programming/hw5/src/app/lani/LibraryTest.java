@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import app.lani.exception.BorrowException;
-import app.lani.exception.ReturnException;
 
 public class LibraryTest {
     static Scanner key = new Scanner(System.in);
@@ -83,18 +82,17 @@ public class LibraryTest {
                     bookID = key.next();
                     System.out.print("반납하려는 도서명을 입력하세요 ");
                     bookTitle = key.next();
-                    try {
-                        library.returnBook(student, bookID, bookTitle); //책을 반납한다.
-                        System.out.println("정상적으로 반납되었습니다.");   //Exception이 발생하지 않았다면 정상적 반납
-                    } catch (ReturnException e) {
-                        //에러 메시지를 출력한다.
-                        System.out.println(e.getMessage());
+                    if(library.returnBook(student, bookID, bookTitle)) {
+                        System.out.println("정상적으로 반납되었습니다.");   //True라면 정상적 반납
+                    } else {
+                        System.out.println("해당 도서를 대출한 이력이 없습니다.");
                     }
                     break;
 
                 case 3:
                     System.out.println("정상적으로 로그아웃 되었습니다.");
                     return;
+
             }
         }
     }
@@ -133,8 +131,12 @@ public class LibraryTest {
                 case 2:
                     System.out.print("삭제하려는 학생의 학번을 입력하세요 ");
                     studentID = key.next();
-                    library.deleteStudent(studentID);
-                    System.out.println("정상적으로 삭제하였습니다.");
+                    if(library.deleteStudent(studentID)) {
+                        System.out.println("정상적으로 삭제하였습니다.");
+                    } else {
+                        System.out.println("해당 학생은 반납하지 않은 책이 있습니다.");
+                    }
+                    
                     break;
                 
                 case 3:

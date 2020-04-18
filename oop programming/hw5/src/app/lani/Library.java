@@ -3,7 +3,6 @@ package app.lani;
 import java.util.ArrayList;
 
 import app.lani.exception.BorrowException;
-import app.lani.exception.ReturnException;
 
 public class Library {
     private ArrayList<Book> bookList;    //도서관에 있는 책들
@@ -93,16 +92,16 @@ public class Library {
      * @param student   학생
      * @param bookId    책 번호
      * @param bookTitle 책 제목
-     * @throws ReturnException
      */
-    public void returnBook(Student student, String bookId, String bookTitle) throws ReturnException {
+    public boolean returnBook(Student student, String bookId, String bookTitle) {
         //사용자는 입력 오류를 일으키지 않는다고 가정하므로, 도서 이름이 잘못되었을 경우는 고려하지 않는다.
         Book bookToReturn = searchBook(bookId, bookTitle);
         if(student.returnBook(bookToReturn)) {
             //정상적인 반납
             bookToReturn.setStatus(true);
+            return true;
         } else {
-            throw new ReturnException("해당 도서를 대출한 내역이 없습니다.");
+            return false;
         }
     }
 
