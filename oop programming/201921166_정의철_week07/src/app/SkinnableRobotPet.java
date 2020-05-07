@@ -6,7 +6,6 @@ public class SkinnableRobotPet extends RobotPet implements Skinnable {
 
     public SkinnableRobotPet(String name, String masterName, int skin) {
         super(name, masterName);
-        this.skin = skin;   //이거 안넣어서 감점 당함ㅠㅠ
     }
     
     @Override
@@ -15,32 +14,6 @@ public class SkinnableRobotPet extends RobotPet implements Skinnable {
             setSkin(skin);
         else
             System.out.println("스킨 색이 올바르지 않습니다.");
-    }
-
-    /**
-     * robot pet 주인의 이름 리턴
-     * @return name of robot pet's master
-     */
-    @Override
-    public String getMasterName() {
-        return super.getMasterName();
-    }
-
-    /**
-     * robot pet의 이름 리턴
-     * @return name of robot pet
-     */
-    @Override
-    public String getName() {
-        return super.getName();
-    }
-
-    /**
-     * robot pet의 피부색 리턴
-     * @return skin color of robot pet
-     */
-    public int getSkin() {
-        return skin;
     }
 
     @Override
@@ -72,11 +45,29 @@ public class SkinnableRobotPet extends RobotPet implements Skinnable {
     }
 
     /**
-     * master name setter
+     * robot pet의 이름 리턴
+     * @return name of robot pet
      */
     @Override
-    public void setMasterName(String masterName) {
-        super.setMasterName(masterName);    //super 메소드 호출
+    public String getName() {
+        return super.getName();
+    }
+
+    /**
+     * robot pet 주인의 이름 리턴
+     * @return name of robot pet's master
+     */
+    @Override
+    public String getMasterName() {
+        return super.getMasterName();
+    }
+
+    /**
+     * robot pet의 피부색 리턴
+     * @return skin color of robot pet
+     */
+    public int getSkin() {
+        return skin;
     }
 
     /**
@@ -85,6 +76,14 @@ public class SkinnableRobotPet extends RobotPet implements Skinnable {
     @Override
     public void setName(String name) {
         super.setName(name);    //super 메소드 호출
+    }
+
+    /**
+     * master name setter
+     */
+    @Override
+    public void setMasterName(String masterName) {
+        super.setMasterName(masterName);    //super 메소드 호출
     }
 
     /**
