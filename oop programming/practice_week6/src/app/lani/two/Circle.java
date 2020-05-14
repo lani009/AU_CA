@@ -1,5 +1,6 @@
 package app.lani.two;
 
+@SuppressWarnings("unused")
 public class Circle extends Shape {
     private int radius;
 

@@ -1,5 +1,6 @@
 package app.lani.three;
 
+@SuppressWarnings("unused")
 public class InstenceofExample {
     public static void method1(Parent p ) {
         if(p instanceof Child) {

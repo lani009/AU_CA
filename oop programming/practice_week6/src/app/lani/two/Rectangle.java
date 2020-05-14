@@ -1,5 +1,6 @@
 package app.lani.two;
 
+@SuppressWarnings("unused")
 public class Rectangle extends Shape{
     private int width, height;
 

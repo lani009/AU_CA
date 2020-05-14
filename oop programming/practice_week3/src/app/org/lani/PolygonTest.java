@@ -13,5 +13,6 @@ public class PolygonTest {
         Polygon poly = new Polygon(point);
 
         poly.print();
+        input.close();
     }
 }
