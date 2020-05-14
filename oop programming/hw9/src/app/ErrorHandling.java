@@ -10,13 +10,13 @@ public class ErrorHandling {
             int value1 = Integer.parseInt(input1);
             int value2 = Integer.parseInt(input2);
             
-            int result =value1 +value2;
+            int result = value1 +value2;
 
             System.out.println("result:"+ result);
     
         } catch(ArrayIndexOutOfBoundsException e) {
-            System.out.println("배열의 인덱스가 잘못되었습니다.");
-            e.printStackTrace();   
+            System.out.println("잘못된 배열의 인덱스를 참조했습니다.");
+            e.printStackTrace();
         } catch(NumberFormatException e) {
             System.out.println("입력된 값이 정수가 아닙니다.");
             e.printStackTrace();
