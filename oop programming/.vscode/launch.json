@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Test",
+            "request": "launch",
+            "mainClass": "hw2_4.Test",
+            "projectName": "assment2"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Test",
+            "request": "launch",
+            "mainClass": "hw2_3.Test",
+            "projectName": "assment2"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - PayableInterfaceTest",
             "request": "launch",
             "mainClass": "hw2_2.PayableInterfaceTest",
