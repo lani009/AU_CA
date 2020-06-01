@@ -6,240 +6,24 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Test",
-            "request": "launch",
-            "mainClass": "hw2_4.Test",
-            "projectName": "assment2"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - Test",
-            "request": "launch",
-            "mainClass": "hw2_3.Test",
-            "projectName": "assment2"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - PayableInterfaceTest",
-            "request": "launch",
-            "mainClass": "hw2_2.PayableInterfaceTest",
-            "projectName": "assment2"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - Application",
-            "request": "launch",
-            "mainClass": "hw2_2.Application",
-            "projectName": "assment2"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - Test",
-            "request": "launch",
-            "mainClass": "hw2_1.Test",
-            "projectName": "assment2"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - CommisionEmployee",
-            "request": "launch",
-            "mainClass": "hw2_1.CommisionEmployee",
-            "projectName": "assment2"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch) - Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-Main<201921166_정의철_exam>",
-            "request": "launch",
-            "mainClass": "exam.Main",
-            "projectName": "201921166_정의철_exam"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-PetsTest<201921166_정의철_week07>",
-            "request": "launch",
-            "mainClass": "app.PetsTest",
-            "projectName": "201921166_정의철_week07"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-ShapeManager<Practice_test>",
-            "request": "launch",
-            "mainClass": "app.ShapeManager",
-            "projectName": "Practice_test"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-FindPage<assment1>",
-            "request": "launch",
-            "mainClass": "hw02.FindPage",
-            "projectName": "assment1"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-Main<exam_solution>",
-            "request": "launch",
-            "mainClass": "exam.Main",
-            "projectName": "exam_solution"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-MemberTest<hw06>",
+            "name": "CodeLens (Launch) - MemberTest",
             "request": "launch",
             "mainClass": "app.lani.MemberTest",
             "projectName": "hw06"
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-SalaryManager<hw2>",
+            "name": "CodeLens (Launch) - Main",
             "request": "launch",
-            "mainClass": "org.lani.SalaryManager",
-            "projectName": "hw2"
+            "mainClass": "application.lani.Main",
+            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-11.0.2/lib\" --add-modules=javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
-            "name": "Debug (Launch)-TriangleTest<hw3>",
-            "request": "launch",
-            "mainClass": "app.org.lani.TriangleTest",
-            "projectName": "hw3"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-BankTest<hw4 (2)>",
-            "request": "launch",
-            "mainClass": "app.BankTest",
-            "projectName": "hw4 (2)"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-SalaryManager<hw4 (2)>",
-            "request": "launch",
-            "mainClass": "org.lani.SalaryManager",
-            "projectName": "hw4 (2)"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-BankTest<hw4>",
-            "request": "launch",
-            "mainClass": "app.BankTest",
-            "projectName": "hw4"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-LibraryTest<hw5>",
-            "request": "launch",
-            "mainClass": "app.lani.LibraryTest",
-            "projectName": "hw5"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-PetsTest<hw7>",
-            "request": "launch",
-            "mainClass": "app.PetsTest",
-            "projectName": "hw7"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-ErrorHandling<hw9>",
-            "request": "launch",
-            "mainClass": "app.ErrorHandling",
-            "projectName": "hw9"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-EnhancedForExample<practice_week3>",
-            "request": "launch",
-            "mainClass": "week2.EnhancedForExample",
-            "projectName": "practice_week3"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-SwitchStringExample<practice_week3>",
-            "request": "launch",
-            "mainClass": "week2.SwitchStringExample",
-            "projectName": "practice_week3"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-BitCoinTest<practice_week4 (2)>",
-            "request": "launch",
-            "mainClass": "app.BitCoinTest",
-            "projectName": "practice_week4 (2)"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-PolygonTest<practice_week4>",
-            "request": "launch",
-            "mainClass": "app.org.lani.PolygonTest",
-            "projectName": "practice_week4"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-BoxTest<practice_week5>",
-            "request": "launch",
-            "mainClass": "app.lani.BoxTest",
-            "projectName": "practice_week5"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-Test<practice_week6>",
-            "request": "launch",
-            "mainClass": "app.lani.one.Test",
-            "projectName": "practice_week6"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-InstenceofExample<practice_week6>",
-            "request": "launch",
-            "mainClass": "app.lani.three.InstenceofExample",
-            "projectName": "practice_week6"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-ShapeTest<practice_week6>",
-            "request": "launch",
-            "mainClass": "app.lani.two.ShapeTest",
-            "projectName": "practice_week6"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-VRTester<practice_week7>",
-            "request": "launch",
-            "mainClass": "app.VRTester",
-            "projectName": "practice_week7"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-IndexViolation<practice_week9>",
-            "request": "launch",
-            "mainClass": "one.IndexViolation",
-            "projectName": "practice_week9"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-AccountTest<practice_week9>",
-            "request": "launch",
-            "mainClass": "three.AccountTest",
-            "projectName": "practice_week9"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-ThrowsTest<practice_week9>",
-            "request": "launch",
-            "mainClass": "two.ThrowsTest",
-            "projectName": "practice_week9"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)-Main",
+            "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "application.Main",
-            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-11.0.2/lib\" --add-modules=javafx.controls"
+            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-11.0.2/lib\" --add-modules=javafx.controls,javafx.fxml"
         }
     ]
 }
