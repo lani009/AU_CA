@@ -1,3 +1,5 @@
 /.metadata/
 *.class
 *.classpath
+bin/
+*.zip

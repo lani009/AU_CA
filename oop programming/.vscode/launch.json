@@ -6,16 +6,31 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - MemberTest",
+            "name": "CodeLens (Launch) - Main",
             "request": "launch",
-            "mainClass": "app.lani.MemberTest",
-            "projectName": "hw06"
+            "mainClass": "ParkingApplication.Main",
+            "projectName": "hw13"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main2",
+            "request": "launch",
+            "mainClass": "lani.Main2",
+            "projectName": "practice_week13"
         },
         {
             "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
-            "mainClass": "application.lani.Main",
+            "mainClass": "lani.Main",
+            "projectName": "practice_week13"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "application.Main",
+            "projectName": "hw12",
             "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-11.0.2/lib\" --add-modules=javafx.controls,javafx.fxml"
         },
         {
@@ -23,7 +38,15 @@
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "application.Main",
+            "projectName": "practice_week12",
             "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-11.0.2/lib\" --add-modules=javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - MemberTest",
+            "request": "launch",
+            "mainClass": "app.lani.MemberTest",
+            "projectName": "hw06"
         }
     ]
 }
