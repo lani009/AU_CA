@@ -8,6 +8,27 @@
             "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
+            "mainClass": "hw.Main",
+            "projectName": "201921166_정의철_week14"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - PointTest",
+            "request": "launch",
+            "mainClass": "application.Two.PointTest",
+            "projectName": "practice_week14"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - HashSetTest",
+            "request": "launch",
+            "mainClass": "application.one.HashSetTest",
+            "projectName": "practice_week14"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
             "mainClass": "ParkingApplication.Main",
             "projectName": "hw13"
         },
