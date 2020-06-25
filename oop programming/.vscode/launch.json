@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - PairTest",
+            "request": "launch",
+            "mainClass": "app.PairTest",
+            "projectName": "practice_week15"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "hw.Main",
