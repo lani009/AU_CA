@@ -1,8 +1,8 @@
-#include <linux/init.h>
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/list.h>
-#include <linux/slab.h>
+#include <linux/init.h>     // init.h 헤더파일 추가
+#include <linux/module.h>   // module.h 헤더파일 추가
+#include <linux/kernel.h>   // kernel.h 헤더파일 추가
+#include <linux/list.h>     // list.h 헤더파일 추가
+#include <linux/slab.h>     // slab.h 헤더파일 추가
 
 struct birthday
 {
@@ -62,7 +62,7 @@ void module_birthday_exit(void) {
         printk(KERN_INFO "Removing %d %d %d\n", ptr->month,
             ptr->day, ptr->year);   // <6> KERN_INFO 레벨에서 삭제할 생일에 대한 정보 로그 출력
         list_del(&ptr->list);   // ptr포인터에 담긴 엔트리(node)를 삭제한다.
-        kfree(ptr); // 동적할당된 ptr 메모리를 반환한다.
+        kfree(ptr); // 동적할당된 ptr 메모리를 반납한다.
     }
 }
 

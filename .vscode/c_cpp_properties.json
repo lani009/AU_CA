@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/src/linux-headers-4.4.0-87-generic/arch/x86/include",
@@ -21,18 +21,7 @@
             ],
             "windowsSdkVersion": "10.0.17763.0",
             "compilerPath": "/usr/bin/gcc",
-            "cStandard": "c11",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "${default}"
-        },
-        {
-            "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [],
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu11",
+            "cStandard": "c18",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64"
         }
