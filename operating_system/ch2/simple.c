@@ -16,14 +16,14 @@
 /* This function is called when the module is loaded. */
 int simple_init(void)
 {
-       printk(KERN_INFO "Loading Module\n");     // 6번 - KERN_INFO 레벨에서 "loading Module" 출력
+       printk(KERN_INFO "Loading Module\n");     // <6> - KERN_INFO 레벨에서 "loading Module" 출력
 
-       return 0;     // 정상 종료
+       return 0;     // 정상 종료를 알림
 }
 
 /* This function is called when the module is removed. */
 void simple_exit(void) {
-	printk(KERN_INFO "Removing Module\n");    // 6번 - KERN_INFO 레벨에서 "Removing Module" 출력
+	printk(KERN_INFO "Removing Module\n");    // <6> - KERN_INFO 레벨에서 "Removing Module" 출력
 }
 
 /* Macros for registering module entry and exit points. */
