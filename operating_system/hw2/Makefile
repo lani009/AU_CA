@@ -1,5 +1,9 @@
 CC = gcc
 
+TARGET += client
+TARGET += server
 all:
-	gcc client.c -o client
-	gcc server.c -o server
+	$(CC) &(TARGET).c -o $(TARGET)
+
+clean:
+	rm -f $(TARGET)

@@ -4,18 +4,19 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
-void error_handling(char *message);
+
+#define PORT 5555
+void error(char *msg);
 
 int main() {
-    int sock;   // 소켓
+    int sock = 0;   // 소켓
     struct sockaddr_in serv_addr;   // 서버 주소
-    char message[100];
-    int str_len;
+    char buffer[1024] = { 0 };
 
     sock = socket(PF_INET, SOCK_STREAM, 0); // 소켓 생성
 
     if (sock == 1) {
-        error_handling("socket() error");
+        error("Socket creation error");
     }
 
     memset(&serv_addr, 0, sizeof(serv_addr));   // serv_addr 변수의 내용을 0으로 채워라.
@@ -24,29 +25,20 @@ int main() {
     serv_addr.sin_port = htons(5555);   // 서버 포트는 5555이다.
 
     if (connect(sock, (struct sockaddr*) &serv_addr, sizeof(serv_addr)) == -1) {
-        error_handling("connect() error!");
+        error("socket connection error");
     }
 
-    char buffer[100] = { NULL };
-    printf("***PLEASE INPUT letter 'q' to QUIT PROGRAM***\n");
-    while (1) {
-        printf("input your message: ");
-        scanf("%s", &buffer);
-        write(sock, buffer, sizeof(buffer));
-        
-        if (strcmp(buffer, "q") == 0) break;
-
-        read(sock, buffer, sizeof(buffer)-1);
-        printf("Message from server : %s \n", buffer);
-    }
+    read(sock, buffer, sizeof(buffer)-1);
+    printf("%s\n", buffer);
+    scanf("%s", &buffer);
+    send(sock, buffer, sizeof(buffer), 0);
 
     
     close(sock);
     return 0;
 }
 
-void error_handling(char * message) {
-    fputs(message, stderr);
-    fputc('\n', stderr);
-    exit(1);
+void error(char * msg) {
+    perror(msg);
+    exit(EXIT_FAILURE);
 }
