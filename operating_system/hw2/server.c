@@ -24,6 +24,8 @@ int main() {
 2. 보통이다\n\
 3. 쉽다";
 
+    const char ERPY[] = "1에서 3사이로 입력해 주세요.";
+
     int server_socket;  // 서버 소켓
     int client_socket;  // 클라이언트 소켓
     struct sockaddr_in server_address;   // 서버 주소
@@ -60,11 +62,19 @@ int main() {
             continue;   // 부모프로세스는 while문의 상단으로 가서 다시 accept에서 connection이 올 때 까지 block.
         }
         
-        write(client_socket, QUESTION, strlen(QUESTION)+1);
+        write(client_socket, QUESTION, strlen(QUESTION));
         int client_ans_val;
-        read(client_socket, buffer, sizeof(buffer)-1);
-        client_ans_val = atoi(buffer);
         
+        while (1) {
+            read(client_socket, buffer, sizeof(buffer));
+            client_ans_val = atoi(buffer);
+            if (client_ans_val >= 1 && client_ans_val <= 3) {
+                write(client_socket, "0", 2);
+                break;
+            } else {
+                write(client_socket, ERPY, strlen(ERPY));
+            }
+        }
         printf("클라이언트의 응답: %d\n", client_ans_val);
         break;
     }
