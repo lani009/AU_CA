@@ -1,0 +1,12 @@
+// {type:state}
+// {generate: true}
+(Server Start)->(server socket create)
+(server socket create)[success]->(bind %:5555)
+(bind %:5555)[success]->(listen 10)
+(listen 10)[success]->(waiting for connection request)
+(waiting for connection request)->(accpet)
+
+
+(Client Start)->(client socket create)
+(client socket create)->(connect)
+(connect)->(accpet)
