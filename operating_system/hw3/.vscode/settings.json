@@ -4,6 +4,7 @@
     "gnuGlobal.gtagsExecutable": "/usr/bin/gtags",
     "files.associations": {
         "init.h": "c",
-        "vector": "c"
+        "vector": "c",
+        "queue": "c"
     }
 }
