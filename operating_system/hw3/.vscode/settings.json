@@ -6,6 +6,7 @@
         "init.h": "c",
         "vector": "c",
         "queue": "c",
-        "cstdio": "c"
+        "cstdio": "c",
+        "fstream": "cpp"
     }
 }

@@ -25,6 +25,7 @@ size_t fcfs_buffer_eol = 0;
 size_t rr_buffer_eol = 0;
 
 int main(void) {
+    // TODO 메모리 free
     process_vec  = get_process_input();
     init_timeline(process_vec, process_length);
     sim_fcfs();

@@ -1,5 +1,6 @@
-#ifndef PROCESS
-#define PROCESS
+/* 프로세스 구조체 조작에 필요한 함수들 */
+#ifndef PROCESS_H
+#define PROCESS_H
 #include <sys/types.h>
 typedef struct _Process
 {
