@@ -4,25 +4,25 @@
 
 ssize_t front = -1;
 ssize_t rear = -1;
-Process queue[MAX];
+Process* queue[MAX];
 
 void offer(Process* value) {
     rear = (rear+1)%MAX;
-    queue[rear] = *value;
+    queue[rear] = value;
 }
 
 Process* poll() {
     front = (front+1)%MAX;
-    return &queue[front];
+    return queue[front];
 }
 
-void init() {
+void init_queue() {
     front = -1;
     rear = -1;
 }
 
 void array_as_queue(Process* array, size_t length) {
-    init();
+    init_queue();
 
     for (size_t i = 0; i < length; i++)
     {

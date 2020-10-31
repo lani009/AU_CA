@@ -1,9 +1,12 @@
 CC = gcc
-OBJECTS = process queue timeline
+OBJECTS = lib/process.c lib/queue.c lib/timeline.c
 
-TARGET: index
+TARGET = index
 
 all: $(TARGET)
 
-index: $(OBJECTS)
-	$(CC) -o $@ $@.c
+index:
+	$(CC) -o $@ $@.c $(OBJECTS)
+
+clean:
+	rm -f index
