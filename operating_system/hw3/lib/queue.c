@@ -1,4 +1,6 @@
 #include "queue.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 #define MAX_READY_QUEUE 100
 
@@ -21,13 +23,36 @@ void init_queue() {
     rear = -1;
 }
 
-void array_as_queue(Process* array, size_t length) {
-    init_queue();
+Process** queue_as_array() {
+    size_t queue_len = get_queue_size();
 
-    for (size_t i = 0; i < length; i++)
+    Process** queue_array = malloc(sizeof(Process*) * queue_len);
+    for (size_t i = front + 1, cnt = 0; cnt < queue_len; i++, cnt++)
     {
-        offer(&array[i]);
+        queue_array[cnt] = ready_queue[i%MAX_READY_QUEUE];
     }
+    
+    return queue_array;
+}
+
+Process* dispatch_process_by_pid(size_t pid) {
+    Process* selected_process = NULL;
+    size_t queue_len = get_queue_size();
+
+    for (size_t i = front + 1; i < front + 1 + queue_len; i++)
+    {
+        if (ready_queue[i%MAX_READY_QUEUE]->pid == pid) {
+            selected_process = ready_queue[i%MAX_READY_QUEUE];
+            size_t finish_condition = rear < front ? rear + MAX_READY_QUEUE : rear;
+            for (size_t j = i; j < finish_condition; j++)
+            {
+                ready_queue[j%MAX_READY_QUEUE] = ready_queue[(j+1)%MAX_READY_QUEUE];
+            }
+            rear = rear - 1 < 0 ? MAX_READY_QUEUE - 1 : rear - 1;
+            return selected_process;
+        }
+    }
+    return selected_process;
 }
 
 size_t get_queue_size() {
