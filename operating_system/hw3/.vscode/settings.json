@@ -5,6 +5,7 @@
     "files.associations": {
         "init.h": "c",
         "vector": "c",
-        "queue": "c"
+        "queue": "c",
+        "cstdio": "c"
     }
 }

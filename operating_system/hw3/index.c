@@ -5,16 +5,24 @@
 #include "lib/process.h"
 #include "lib/timeline.h"
 
-#define DEBUG_MODE 0b110
+#define DEBUG_MODE 0b000
 #define TQ 4
+
+Process* get_process_input();
+void sim_fcfs();
+void sim_rr();
+void sim_hrn();
+void print_debug_buffer();
 
 size_t process_length = 0;  // 입력받은 프로세스 개수
 Process* process_vec = 0;    //프로세스 배열
-long double FCFS_WAITING_TIME_AVG = 0;
-long double RR_WAITING_TIME_AVG = 0;
-long double HRN_WAITING_TIME_AVG = 0;
-Process* get_process_input();
-void sim_fcfs();
+long double FCFS_WAT = 0;
+long double RR_WAT = 0;
+long double HRN_WAT = 0;
+size_t buffer_cur = 0;
+char debug_buffer[50000] = { 0 };
+size_t fcfs_buffer_eol = 0;
+size_t rr_buffer_eol = 0;
 
 int main(void) {
     process_vec  = get_process_input();
@@ -23,9 +31,14 @@ int main(void) {
 
     process_vec  = get_process_input();
     init_timeline(process_vec, process_length);
+    sim_rr();
 
+    print_debug_buffer();
     
-    printf("waiting_time_avg = %Lf\n", FCFS_WAITING_TIME_AVG);
+
+    printf("== Waiting Average Time ==\n");
+    printf("FCFS  %2.2Lf(ms)\n", FCFS_WAT);
+    printf("RR    %2.2Lf(ms)\n", RR_WAT);
     return 0;
 }
 
@@ -59,53 +72,137 @@ Process* get_process_input() {
 
 void sim_fcfs() {
     Process* running_process = 0;
+    buffer_cur += sprintf(debug_buffer+buffer_cur, "****FCFS Scheduling Simulation****\n");
     for (size_t time = 0; time < TIMEMAX; time++)
     {
         Process* in_process = get_process_in_time(time);
         if (is_null_process(in_process) == 0) {
             // 새로 들어온 프로세스가 있을 경우
-            printf("%lu(ms): new process arrival p%lu\n", time, in_process->pid);
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%-2lu new process arrival\n", time, in_process->pid);
             offer(in_process);
         }
         if (is_null_process(running_process)) {
             // CPU가 아무런 작업도 하고 있지 않은 경우
             if (get_queue_size() == 0) {
                 // 큐에도 프로세스가 없을 경우
-                printf("%lu(ms): CPU 노는 중\n", time);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): CPU 노는 중\n", time);
             } else {
                 // 큐에 프로세스가 있을 경우
                 running_process = poll();
-                printf("%lu(ms): dispatch process p%lu\n", time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%-2lu dispatch process\n", time, running_process->pid);
             }
             
         } else {
             // CPU가 어떠한 프로세스를 처리하고 있는 경우
-            printf("%lu(ms): process running p%lu\n", time, running_process->pid);
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%-2lu process running\n", time, running_process->pid);
             if (running_process->remaining_time-- == 1) {
                 // remaining burst time 을 1 줄이고, 만약에 이미 0 일 경우 running_process에서 제외
                 running_process->exit_time = time;    // 작업이 끝난 시간을 초기화
 
-                printf("%lu(ms): process finish p%lu\n", time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%-2lu process finish\n", time, running_process->pid);
                 if (get_queue_size() != 0) {
                     // 아직 큐에 남아있는 프로세스가 있는 경우
                     running_process = poll();
-                    printf("%lu(ms): dispatch process p%lu\n", time, running_process->pid);
+                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%-2lu dispatch process\n", time, running_process->pid);
                 } else {
                     // 큐에 프로세스가 없는 경우
                 }
             }
         }
-        printf("\n");
+        buffer_cur += sprintf(debug_buffer+buffer_cur, "\n");
     }
 
     size_t waiting_time_sum = 0;
+
+    buffer_cur += sprintf(debug_buffer+buffer_cur, "FCFS process waiting time\n");
     for (size_t i = 0; i < process_length; i++)
     {
-        printf("%lu\n", process_vec[i].exit_time - process_vec[i].arrival_time - process_vec[i].burst_time);
+        buffer_cur += sprintf(debug_buffer+buffer_cur, "p%-2lu  %2lu(ms)\n", process_vec[i].pid,  \
+        process_vec[i].exit_time - process_vec[i].arrival_time - process_vec[i].burst_time);
+
         waiting_time_sum += process_vec[i].exit_time - process_vec[i].arrival_time - process_vec[i].burst_time;
     }
-    FCFS_WAITING_TIME_AVG = waiting_time_sum/(long double)process_length;
-    if (!(DEBUG_MODE & 0b100)) {
-        system("clear");
+    buffer_cur += sprintf(debug_buffer+buffer_cur, "\n\n");
+    FCFS_WAT = waiting_time_sum/(long double)process_length;
+
+    fcfs_buffer_eol = ++buffer_cur;
+}
+
+void sim_rr() {
+    buffer_cur += sprintf(debug_buffer+buffer_cur, "****RR Scheduling Simulation****\n");
+    Process* running_process = 0;
+    size_t timer = 0;
+    for (size_t time = 0; time < TIMEMAX; time++)
+    {
+        Process* in_process = get_process_in_time(time);
+        if (is_null_process(in_process) == 0) {
+            // 새로 들어온 프로세스가 있을 경우
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%lu new process arrival\n", time, in_process->pid);
+            offer(in_process);
+        }
+        if (is_null_process(running_process)) {
+            // CPU가 아무런 작업도 하고 있지 않은 경우
+            if (get_queue_size() == 0) {
+                // 큐에도 프로세스가 없을 경우
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): CPU 노는 중\n", time);
+            } else {
+                // 큐에 프로세스가 있을 경우
+                running_process = poll();
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%lu dispatch process\n", time, running_process->pid);
+            }
+            
+        } else {
+            // CPU가 어떠한 프로세스를 처리하고 있는 경우
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%lu process running\n", time, running_process->pid);
+            if (running_process->remaining_time-- == 1) {
+                // remaining burst time 을 1 줄이고, 만약에 이미 0 일 경우 running_process에서 제외
+                running_process->exit_time = time;    // 작업이 끝난 시간을 초기화
+
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%lu process finish\n", time, running_process->pid);
+                if (get_queue_size() != 0) {
+                    // 아직 큐에 남아있는 프로세스가 있는 경우
+                    running_process = poll();
+                    timer = 0;  // 타이머 초기화
+                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%lu dispatch process\n", time, running_process->pid);
+                } else {
+                    // 큐에 프로세스가 없는 경우
+                }
+            }
+            if (timer++ == TQ-1) {
+                // 프로세스가 Time Quantum에 도달하였을 때 인터럽트 하고 큐에 저장
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): process interrupt p%lu\n", time, running_process->pid);
+                offer(running_process);
+                running_process = poll();
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2lu(ms): p%lu dispatch process\n", time, running_process->pid);
+                timer = 0;
+            }
+        }
+        buffer_cur += sprintf(debug_buffer+buffer_cur, "\n");
+    }
+
+    size_t waiting_time_sum = 0;
+    buffer_cur += sprintf(debug_buffer+buffer_cur, "RR process waiting time\n");
+    for (size_t i = 0; i < process_length; i++)
+    {
+        buffer_cur += sprintf(debug_buffer+buffer_cur, "p%-2lu  %2lu(ms)\n", process_vec[i].pid,  \
+        process_vec[i].exit_time - process_vec[i].arrival_time - process_vec[i].burst_time);
+        waiting_time_sum += process_vec[i].exit_time - process_vec[i].arrival_time - process_vec[i].burst_time;
+    }
+    buffer_cur += sprintf(debug_buffer+buffer_cur, "\n\n");
+    RR_WAT = waiting_time_sum/(long double)process_length;
+
+    rr_buffer_eol = ++buffer_cur;
+}
+
+
+void print_debug_buffer() {
+    if (DEBUG_MODE & 0b100) {
+        printf("%s", debug_buffer);
+    }
+    if (DEBUG_MODE & 0b010) {
+        printf("%s", debug_buffer+fcfs_buffer_eol);
+    }
+    if (DEBUG_MODE & 0b001) {
+        printf("%s", debug_buffer+rr_buffer_eol);
     }
 }

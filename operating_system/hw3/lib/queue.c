@@ -1,19 +1,19 @@
 #include "queue.h"
 
-#define MAX 100
+#define MAX_READY_QUEUE 100
 
 ssize_t front = -1;
 ssize_t rear = -1;
-Process* queue[MAX];
+Process* ready_queue[MAX_READY_QUEUE];
 
 void offer(Process* value) {
-    rear = (rear+1)%MAX;
-    queue[rear] = value;
+    rear = (rear+1)%MAX_READY_QUEUE;
+    ready_queue[rear] = value;
 }
 
 Process* poll() {
-    front = (front+1)%MAX;
-    return queue[front];
+    front = (front+1)%MAX_READY_QUEUE;
+    return ready_queue[front];
 }
 
 void init_queue() {
@@ -31,5 +31,5 @@ void array_as_queue(Process* array, size_t length) {
 }
 
 size_t get_queue_size() {
-    return front > rear ? (MAX - front + rear + 1) : (rear - front);
+    return front > rear ? (MAX_READY_QUEUE - front + rear + 1) : (rear - front);
 }
