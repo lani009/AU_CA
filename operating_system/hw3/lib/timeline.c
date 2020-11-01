@@ -1,5 +1,4 @@
 #include "timeline.h"
-#include "process.h"
 
 Process* process_time_vector[TIMEMAX] = { 0 };
 
@@ -20,6 +19,7 @@ void init_timeline(Process* process_array, size_t length) {
 
 /*
  * time (ms)에 arrival한 프로세스를 리턴한다
+ * 만약에 없을 경우 null_process를 리턴한다
  */
 Process* get_process_in_time(size_t time) {
     return process_time_vector[time];

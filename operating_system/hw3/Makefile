@@ -1,12 +1,12 @@
 CC = gcc
-OBJECTS = lib/process.c lib/queue.c lib/timeline.c
+DEPENDENT = lib/process.c lib/queue.c lib/timeline.c
 
 TARGET = index
 
 all: $(TARGET)
 
 index:
-	$(CC) -o $@ $@.c $(OBJECTS)
+	$(CC) -o $@ $@.c $(DEPENDENT)
 
 clean:
 	rm -f index
