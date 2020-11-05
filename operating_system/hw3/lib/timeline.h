@@ -2,7 +2,7 @@
 #ifndef TIMELINE_H
 #define TIMELINE_H
 
-/* 최대 시뮬레이션 가능 시간 */
+/* 최대 시뮬레이션 가능 시간(ms) */
 #define TIMEMAX 100
 
 #include <stdio.h>

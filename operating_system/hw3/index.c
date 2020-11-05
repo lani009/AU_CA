@@ -64,9 +64,9 @@ int main(void) {
     print_debug_buffer();
 
     printf("== Average Waiting Time ==\n");
-    printf("FCFS  %2.2Lf(ms)\n", FCFS_AWT);
-    printf("RR    %2.2Lf(ms)\n", RR_AWT);
-    printf("HRN   %2.2Lf(ms)\n", HRN_AWT);
+    printf("FCFS  %2.3Lf(ms)\n", FCFS_AWT);
+    printf("RR    %2.3Lf(ms)\n", RR_AWT);
+    printf("HRN   %2.3Lf(ms)\n", HRN_AWT);
     return 0;
 }
 
@@ -84,7 +84,7 @@ Process* get_process_input() {
     size_t process_input = 0;   // 입력받은 프로세스 개수
 
     /* EOL에 도달할 때 까지 계속해서 입력을 받음 */
-    while ((tmp_result = fscanf(fp, "%d %d", &temp1, &temp2)) != -1) {
+    while ((tmp_result = fscanf(fp, "%d %d", &temp1, &temp2)) != EOF) {
         process_list[process_input].remaining_time = temp1;
         process_list[process_input].burst_time = temp1;
         process_list[process_input].pid = process_input;
@@ -113,7 +113,7 @@ void sim_fcfs() {
         Process* in_process = get_process_in_time(current_time);    // time (ms)에 arrival한 프로세스를 받아온다.
         if (is_null_process(in_process) == 0) {
             // 새로 들어온 프로세스가 있을 경우
-            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu new process arrival\n", current_time, in_process->pid);
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process arrival\n", current_time, in_process->pid);
             offer(in_process);  // 큐에 프로세스 저장
         }
         if (is_null_process(running_process)) {
@@ -128,7 +128,7 @@ void sim_fcfs() {
             } else {
                 // 큐에 프로세스가 있을 경우
                 running_process = poll();   // 큐에서 프로세스를 빼온다.
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu dispatch process\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n", current_time, running_process->pid);
             }
             
         } else {
@@ -138,11 +138,11 @@ void sim_fcfs() {
                 // remaining burst time 을 1 줄이고, 만약에 작업이 끝난 경우
                 running_process->exit_time = current_time;    // 작업이 끝난 시간을 초기화
 
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process finish\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process exit\n", current_time, running_process->pid);
                 if (get_queue_size() != 0) {
                     // 아직 큐에 남아있는 프로세스가 있는 경우
                     running_process = poll();   // 큐에서 프로세스를 빼온다.
-                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu dispatch process\n", current_time, running_process->pid);
+                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n", current_time, running_process->pid);
                 } else {
                     // 큐에 프로세스가 없는 경우
                 }
@@ -181,7 +181,7 @@ void sim_rr() {
         Process* in_process = get_process_in_time(current_time);
         if (is_null_process(in_process) == 0) {
             // 새로 들어온 프로세스가 있을 경우
-            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu new process arrival\n", current_time, in_process->pid);
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process arrival\n", current_time, in_process->pid);
             offer(in_process);
         }
         if (is_null_process(running_process)) {
@@ -196,22 +196,22 @@ void sim_rr() {
             } else {
                 // 큐에 프로세스가 있을 경우
                 running_process = poll();
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu dispatch process\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n", current_time, running_process->pid);
             }
             
         } else {
             // CPU가 어떠한 프로세스를 처리하고 있는 경우
-            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu process running\n", current_time, running_process->pid);
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process running\n", current_time, running_process->pid);
             if (--running_process->remaining_time == 0) {
                 // remaining burst time 을 1 줄이고, 만약에 0 일 경우 작업이 끝난 것이므로 running_process에서 제외
                 running_process->exit_time = current_time;    // 작업이 끝난 시간을 초기화
 
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu process finish\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process exit\n", current_time, running_process->pid);
                 if (get_queue_size() != 0) {
                     // 아직 큐에 남아있는 프로세스가 있는 경우
                     running_process = poll();
                     timer = 0;  // 타이머 초기화
-                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu dispatch process\n", current_time, running_process->pid);
+                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n", current_time, running_process->pid);
                 } else {
                     // 큐에 프로세스가 없는 경우
                 }
@@ -219,10 +219,10 @@ void sim_rr() {
             if (++timer == TQ) {
                 // 프로세스가 Time Quantum에 도달하였을 때 인터럽트 하고 큐에 저장
 
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): process interrupt p%zu\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process interrupted\n", current_time, running_process->pid);
                 offer(running_process); // 현재 실행중이던 프로세스를 큐에 담는다.
                 running_process = poll();   // 큐에서 새로운 프로세스를 꺼내온다.
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu dispatch process\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n", current_time, running_process->pid);
                 timer = 0;  // timer 0으로 초기화
             }
         }
@@ -252,7 +252,7 @@ void sim_hrn() {
         Process* in_process = get_process_in_time(current_time);
         if (is_null_process(in_process) == 0) {
             // 새로 들어온 프로세스가 있을 경우
-            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu new process arrival\n", current_time, in_process->pid);
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process arrival\n", current_time, in_process->pid);
             offer(in_process);
         }
         if (is_null_process(running_process)) {
@@ -268,17 +268,17 @@ void sim_hrn() {
             } else {
                 // 큐에 프로세스가 있을 경우
                 running_process = poll();
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu dispatch process\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n", current_time, running_process->pid);
             }
             
         } else {
             // CPU가 어떠한 프로세스를 처리하고 있는 경우
-            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu process running\n", current_time, running_process->pid);
+            buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process running\n", current_time, running_process->pid);
             if (--running_process->remaining_time == 0) {
                 // remaining burst time 을 1 줄이고, 만약에 이미 0 일 경우 running_process에서 제외
                 running_process->exit_time = current_time;    // 작업이 끝난 시간을 초기화
 
-                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%zu process finish\n", current_time, running_process->pid);
+                buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process exit\n", current_time, running_process->pid);
                 if (get_queue_size() != 0) {
                     // 아직 큐에 남아있는 프로세스가 있는 경우
                     Process** remaining_process_array = queue_as_array();   // 큐에 남아있는 프로세스들을 배열의 형태로 변환한다.
@@ -323,6 +323,9 @@ void sim_hrn() {
     HRN_AWT = waiting_time_sum/(long double)process_length;
 }
 
+/*
+ * 디버그용 버퍼를 DEBUG_MODE 매크로에 따라 출력한다.
+ */
 void print_debug_buffer() {
     if (DEBUG_MODE & 0b100) {
         printf("%s", debug_buffer);

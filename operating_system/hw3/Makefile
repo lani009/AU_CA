@@ -1,21 +1,23 @@
 CC = gcc
 CFLAGS = -g
 
+LIBRARY = ./lib/
+
 TARGET = index
 
 all: $(TARGET)
 
-index: lib/process.o lib/queue.o lib/timeline.o index.o
+index: $(LIBRARY)process.o $(LIBRARY)queue.o $(LIBRARY)timeline.o index.o
 	$(CC) $(CFLAGS) -o $@ $@.o process.o queue.o timeline.o
 
-lib/process.o:
-	$(CC) $(CFLAGS) -c lib/process.c
+$(LIBRARY)process.o:
+	$(CC) $(CFLAGS) -c $(LIBRARY)process.c
 
-lib/queue.o:
-	$(CC) $(CFLAGS) -c lib/queue.c
+$(LIBRARY)queue.o:
+	$(CC) $(CFLAGS) -c $(LIBRARY)queue.c
 
-lib/timeline.o:
-	$(CC) $(CFLAGS) -c lib/timeline.c
+$(LIBRARY)timeline.o:
+	$(CC) $(CFLAGS) -c $(LIBRARY)timeline.c
 
 index.o:
 	$(CC) $(CFLAGS) -c index.c
