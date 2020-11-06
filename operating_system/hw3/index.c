@@ -18,7 +18,7 @@
  * all:       0b111
  * nothing:   0b000
  */
-#define DEBUG_MODE 0b000
+#define DEBUG_MODE 0b111
 
 /* Time Quantum */
 #define TQ 4
@@ -211,7 +211,8 @@ void sim_rr() {
                     // 아직 큐에 남아있는 프로세스가 있는 경우
                     running_process = poll();
                     timer = 0;  // 타이머 초기화
-                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n", current_time, running_process->pid);
+                    buffer_cur += sprintf(debug_buffer+buffer_cur, "%2zu(ms): p%-2zu process dispatched\n\n", current_time, running_process->pid);
+                    continue;
                 } else {
                     // 큐에 프로세스가 없는 경우
                 }
