@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <pthread.h>
 
 #define FILE_PATH "./input1.txt"
@@ -13,16 +14,16 @@ void save_alphabet(char c);
 
 typedef struct _thread_arg
 {
-    int origin;
-    int offset;
+    size_t origin;
+    size_t offset;
 } thread_arg;
 
 
 int main(void) {
     FILE *input_fd = fopen(FILE_PATH, "r");
     pthread_t pid_arr[THREAD_NUM];
-    int file_size = 0;
-    int thread_offset_arr[THREAD_NUM+1] = { 0 };
+    size_t file_size = 0;
+    size_t thread_offset_arr[THREAD_NUM+1] = { 0 };
     memset(alphabet_arr, 0, sizeof(size_t) * 26);
 
     for (size_t i = 0; i < 26; i++)
@@ -57,7 +58,10 @@ int main(void) {
 
     for (size_t i = 0; i < THREAD_NUM; i++)
     {
-        pthread_create(&pid_arr[i], NULL, count_runner, (void *) &((thread_arg) {thread_offset_arr[i], thread_offset_arr[i+1]}));
+        thread_arg *temp = malloc(sizeof(thread_arg));
+        temp->origin = thread_offset_arr[i];
+        temp->offset = thread_offset_arr[i+1];
+        pthread_create(&pid_arr[i], NULL, count_runner, (void *) temp);
     }
 
     for (size_t i = 0; i < THREAD_NUM; i++)
@@ -68,13 +72,7 @@ int main(void) {
     for (size_t i = 0; i < 26; i++)
     {
         printf("%c: %zu\n", 'a'+(char) i, alphabet_arr[i]);
-    }
-
-    for (size_t i = 0; i < THREAD_NUM+1; i++)
-    {
-        printf("%zu %zu\n", i, thread_offset_arr[i]);
-    }
-    
+    }    
 
     return 0;
 }
@@ -86,13 +84,14 @@ void *count_runner(void *arg) {
     FILE *fp = fopen(FILE_PATH, "r");
     fseek(fp, t_arg.origin, SEEK_SET);
 
-    while (ftell(fp) < t_arg.offset)
+    while (ftell(fp) < t_arg.offset - 1)
     {
         fscanf(fp, "%s", temp);
         save_alphabet(temp[0]);
     }
     
     fclose(fp);
+    free(arg);
     return 0;
 }
 
