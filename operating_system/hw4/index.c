@@ -2,6 +2,9 @@
 #include <pthread.h>
 
 #define THREAD_NUM 3
+
+pthread_mutex_t mutex[30];
+
 typedef struct _thread_arg
 {
     int origin;
@@ -15,17 +18,21 @@ int main(void) {
     int file_size = 0;
     int thread_offset_arr[THREAD_NUM+1] = { 0 };
 
+    for (size_t i = 0; i < 30; i++)
+    {
+        pthread_mutex_init(&mutex[i], NULL);
+    }
+
     fseek(input_fd, 0, SEEK_END);
     file_size = ftell(input_fd);
 
     thread_offset_arr[1] = file_size / THREAD_NUM;
     for (size_t i = 2; i < THREAD_NUM; i++)
     {
-        /* code */
+        thread_offset_arr[i] = thread_offset_arr[1] * i;
     }
-    
+    thread_offset_arr[THREAD_NUM] = file_size;
 
-    thread_offset_arr[2] = thread_offset_arr[1] * 2;
 
     fseek(input_fd, thread_offset_arr[1], SEEK_SET);
 
@@ -42,18 +49,19 @@ int main(void) {
     }
 
 
+    for (size_t i = 0; i < THREAD_NUM; i++)
+    {
+        pthread_create(&pid_arr[2], NULL, count_runner, (void *) &((thread_arg) {thread_offset_arr[i], thread_offset_arr[i+1]}));
+    }
 
-
-    pthread_create(&pid_arr[0], NULL, count_runner, (void *) ((thread_arg) {thread_offset_arr[0], thread_offset_arr[1]}));
-    pthread_create(&pid_arr[1], NULL, count_runner, (void *) ((thread_arg) {thread_offset_arr[1], thread_offset_arr[2]}));
-    pthread_create(&pid_arr[2], NULL, count_runner, (void *) ((thread_arg) {thread_offset_arr[2], thread_offset_arr[3]}));
+    
     
 
     return 0;
 }
 
 void *count_runner(void *arg) {
-
+    pthread_mutex_lock();
 }
 
 void save_alphabet() {
