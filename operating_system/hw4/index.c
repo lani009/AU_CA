@@ -1,9 +1,15 @@
 #include <stdio.h>
+#include <string.h>
 #include <pthread.h>
 
+#define FILE_PATH "./input1.txt"
 #define THREAD_NUM 3
 
-pthread_mutex_t mutex[30];
+pthread_mutex_t mutex_arr[26];
+size_t alphabet_arr[26];
+
+void *count_runner(void *arg);
+void save_alphabet(char c);
 
 typedef struct _thread_arg
 {
@@ -13,14 +19,15 @@ typedef struct _thread_arg
 
 
 int main(void) {
-    FILE *input_fd = fopen("./input1.txt", "r");
+    FILE *input_fd = fopen(FILE_PATH, "r");
     pthread_t pid_arr[THREAD_NUM];
     int file_size = 0;
     int thread_offset_arr[THREAD_NUM+1] = { 0 };
+    memset(alphabet_arr, 0, sizeof(size_t) * 26);
 
-    for (size_t i = 0; i < 30; i++)
+    for (size_t i = 0; i < 26; i++)
     {
-        pthread_mutex_init(&mutex[i], NULL);
+        pthread_mutex_init(&mutex_arr[i], NULL);
     }
 
     fseek(input_fd, 0, SEEK_END);
@@ -48,22 +55,49 @@ int main(void) {
         thread_offset_arr[2]++;
     }
 
+    for (size_t i = 0; i < THREAD_NUM; i++)
+    {
+        pthread_create(&pid_arr[i], NULL, count_runner, (void *) &((thread_arg) {thread_offset_arr[i], thread_offset_arr[i+1]}));
+    }
 
     for (size_t i = 0; i < THREAD_NUM; i++)
     {
-        pthread_create(&pid_arr[2], NULL, count_runner, (void *) &((thread_arg) {thread_offset_arr[i], thread_offset_arr[i+1]}));
+        pthread_join(pid_arr[i], NULL);
+    }
+    
+    for (size_t i = 0; i < 26; i++)
+    {
+        printf("%c: %zu\n", 'a'+(char) i, alphabet_arr[i]);
     }
 
-    
+    for (size_t i = 0; i < THREAD_NUM+1; i++)
+    {
+        printf("%zu %zu\n", i, thread_offset_arr[i]);
+    }
     
 
     return 0;
 }
 
 void *count_runner(void *arg) {
-    pthread_mutex_lock();
+    thread_arg t_arg = * (thread_arg*) arg;
+
+    char temp[50];
+    FILE *fp = fopen(FILE_PATH, "r");
+    fseek(fp, t_arg.origin, SEEK_SET);
+
+    while (ftell(fp) < t_arg.offset)
+    {
+        fscanf(fp, "%s", temp);
+        save_alphabet(temp[0]);
+    }
+    
+    fclose(fp);
+    return 0;
 }
 
-void save_alphabet() {
-
+void save_alphabet(char c) {
+    pthread_mutex_lock(&mutex_arr[c-'a']);
+    alphabet_arr[c-'a']++;
+    pthread_mutex_unlock(&mutex_arr[c-'a']);
 }
