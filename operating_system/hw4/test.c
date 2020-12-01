@@ -1,23 +1,17 @@
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+void *runner();
 int main(void) {
-    FILE *fp = fopen("./input1.txt", "r");
-    char temp[50] = { 0 };
+    pthread_t a;
+    pthread_create(&a, NULL, runner, NULL);
+    void *returner;
+    pthread_join(a, &returner);
 
-    size_t arr[30] = { 0 };
-    while (!feof(fp))
-    {
-        fscanf(fp, "%s", temp);
-        arr[temp[0] - 'a']++;
-    }
+    printf("%zd", (intptr_t)returner);
+}
 
-    for (size_t i = 0; i < 26; i++)
-    {
-        printf("%c: %zu\n", i+'a', arr[i]);
-    }
-    
-    
-
-    fclose(fp);
-    
+void *runner() {
+    return (void *)13;
 }
