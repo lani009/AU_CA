@@ -27,13 +27,15 @@ int main(void) {
 
     fseek(fp, thread1_end, SEEK_SET);
 
-    while (fgetc(fp) != ' ') { }
+    while (fgetc(fp) != ' ')
+        ;
 
     thread1_end = ftell(fp);
 
     fseek(fp, thread2_end, SEEK_SET);
 
-    while (fgetc(fp) != ' ') { }
+    while (fgetc(fp) != ' ')
+        ;
 
     thread2_end = ftell(fp);
 
@@ -66,13 +68,14 @@ void *thread_function(void *_arg) {
     thread_arg arg = *(thread_arg*) _arg;
 
     FILE *fp = fopen("./input1.txt", "r");
-    fseek(fp, arg.file_start, SEEK_CUR);
+    fseek(fp, arg.file_start, SEEK_SET);
 
-    char buffer[50];
+    char buffer[100];
     while (ftell(fp) < arg.file_end) {
         fscanf(fp, "%s", buffer);
         pthread_mutex_lock(&mutex_lock[buffer[0] - 'a']);   // 0 ~ 25
         alphabet_arr[buffer[0] - 'a']++;
         pthread_mutex_unlock(&mutex_lock[buffer[0] - 'a']);
     }
+    fclose(fp);
 }

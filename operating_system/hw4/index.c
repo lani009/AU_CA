@@ -4,16 +4,16 @@
 #include <pthread.h>
 
 /* Input File의 위치 */
-#define FILE_PATH "./input1.txt"
+#define FILE_PATH "./input2.txt"
 
 /* 사용되는 스레드의 수 */
 #define THREAD_NUM 3
 
 /* Alphabet 별로 mutex를 담는 배열 */
-pthread_mutex_t mutex_arr[26];
+pthread_mutex_t mutex_arr[30];
 
 /* 알파벳의 카운트 수를 담는 배열 */
-size_t alphabet_arr[26];
+size_t alphabet_arr[30];
 
 void *count_runner(void *arg);
 void save_alphabet(char c);
@@ -31,10 +31,10 @@ int main(void)
     pthread_t pid_arr[THREAD_NUM];                  // pthread를 담는 배열
     size_t file_size = 0;                           // input.txt 의 총 크기
     size_t thread_offset_arr[THREAD_NUM + 1] = {0}; // 각 스레드 별로 처리해야 할 오프셋
-    memset(alphabet_arr, 0, sizeof(size_t) * 26);   // alphabet_arr을 0으로 채움
+    memset(alphabet_arr, 0, sizeof(size_t) * 30);   // alphabet_arr을 0으로 채움
 
     /* Mutex Initialize */
-    for (size_t i = 0; i < 26; i++)
+    for (size_t i = 0; i < 30; i++)
     {
         pthread_mutex_init(&mutex_arr[i], NULL);
     }
@@ -63,6 +63,22 @@ int main(void)
         thread_offset_arr[2]++;
     }
 
+    /* 
+     * 파일 커서가 공백을 가르키고 있다면, 단어의 끝을 가르키도록
+     * 커서를 앞으로 당겨옴.
+     * 
+     * scanf 방식을 사용하기 때문에, end point가 공백을 가르키고 있으면 마지막 단어가 2번 중복되는
+     * 현상이 발생함.
+     */
+    size_t end_point_cursor = file_size - 1;        // end_point가 eof앞에 위치하면, fgetc()의 결과값이 eof이므로, 1칸 앞으로 당겨옴
+    fseek(input_fp, end_point_cursor, SEEK_SET);
+
+    while (fgetc(input_fp) == 0x20) {
+        fseek(input_fp, --end_point_cursor, SEEK_SET);
+    }
+
+    thread_offset_arr[THREAD_NUM] = end_point_cursor;
+
     /* 스레드 생성 */
     for (size_t i = 0; i < THREAD_NUM; i++)
     {
@@ -78,10 +94,12 @@ int main(void)
         pthread_join(pid_arr[i], NULL);
     }
 
+    printf("======Alphabet Count Reslut======\n");
+
     /* 단어별 카운트 출력 */
     for (size_t i = 0; i < 26; i++)
     {
-        printf("%c: %zu\n", 'a' + (char)i, alphabet_arr[i]);
+        printf("%c: %5zu\n", 'a' + (char)i, alphabet_arr[i]);
     }
 
     /* file close */
