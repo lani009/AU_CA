@@ -11,6 +11,6 @@ typedef struct _Process
     size_t pid;
 } Process;
 
-int is_null_process(Process* process);
-void make_process_null(Process* process);
+int is_null_process(Process *process);
+void make_process_null(Process *process);
 #endif

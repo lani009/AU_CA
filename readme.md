@@ -1,20 +1,14 @@
 # Ajou University Programming Subject
 
-## Computer Programming
-컴퓨터프로그래밍 및 실슬
+## Computer Programming and practice
+컴퓨터프로그래밍 및 실습
 
-## OOP Programming
+## OOP Programming and practice
 객체지향프로그래밍 및 실습
-### assignment 개인 및 팁과제
-#### assment1
+### assignment 개인 및 팀과제
+### 실습과제
+팀과제: https://github.com/lani009/atmAssignment
 
-### hw 실습과제
-#### hw1
-#### hw2
-#### hw3
-#### hw 4
-
-### practice_week 실습 코드
-#### practice_week2
-#### practice_week3
-#### practice_week4
+## Operating System
+운영체제
+### 개인과제
