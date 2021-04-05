@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm} 
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{kotex}
+
+\begin{document}
+
+\section{Exercise 3}
+\subsection{}
+
+
+\begin{algorithm}
+	\caption{Recursive insertion sort}
+	\begin{algorithmic}[1]
+	    \Procedure{Insertion\_sort\_new}{$A, n$} \Comment {$A[1...n]$}
+            \For {$j = 2$ to $A.length$}
+                \State{$key \gets A[j]$}
+                \State{$i \gets j -1$}
+                \State{$index \gets$ binary\_search(A, 1, i, key)}
+                
+                \While{$i \geq  index$}
+                    \State{$A[i+1] \gets A[i]$}
+                    \State{$i \gets i - 1$}
+                \EndWhile
+                \State{$A[i+1] \gets key$}
+            \EndFor
+            \State{return $A$}
+        \EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{}
+이진 탐색을 사용하면, $O(n \log n)$ 복잡도를 갖는다.
+$j$번째 iteration에서 이진 탐색 procedure는 $log_2 (j-1)$ 만큼의 비교를 진행하기 때문에,\\
+
+\begin{equation}
+    \begin{split}
+        \sum_{j=2}^{n} \log_{2} (j-1) & = \sum_{j=1}^{n-1} \log_{2} (j)\\
+     & = n \log_{2} (n+1) + 2^{\log_{2} (n+1) + 1} + 2 \\
+     & = O(n \log n)
+    \end{split}
+\end{equation}
+으로 정리할 수 있다.
+
+\subsection{}
+$T(n) = c_1 n + c_2 (n-1) + c_3 (n-1) + c_4 \log(n-1) + \\
+        c_5 \sum_{j=2}^{n} t_j + c_6 \sum_{j=2}^{n} (t_j-1) + c_7 \sum_{j=2}^{n} (t_j-1) + c_8 (n-1)$
+        
+에서 최악의 상황일 때 $t_j = j$가 된다. 따라서 \\
+$\sum_{j=2}^{n} (j-1) n(n-1)/2$
+이므로 수행시간은 $an^{2}+bn+c+d log n$로 나타낼 수 있다.
+따라서 최악의 상황에서 수행시간은 $O(n^{2})$
+\end{document}

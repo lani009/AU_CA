@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kotex}  %
+\usepackage{setspace}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\author{관우 안}
+\setstretch{1.2}
+
+\begin{document}
+\section{Exercise 2}
+
+
+\subsection{i) (5 point)}
+\\
+\\
+\\
+모든 원소의 값이 같은 배열 A에서 pivot을 가장 오른쪽 값으로 정하고 Quicksort를 시행할 경우, pivot과 다른 모든 원소가 동일하기 때문에 PARTITION(A, p, r)이 작동하면서 pivot의 왼쪽에 모든 원소가 정렬될 것이다.\\
+이는 0개의 원소를 가지는 subarray, n-1개의 원소를 가지는 subarray로 나뉘는 Worst Case의 경우와 유사하고 다음과 같은 점화식으로 표현될 수 있다.\\
+$T(n) = T(n-1) + T(0) + \Theta(n)$\\
+$T(n) = T(n-1) + \Theta(n)$\\
+$T(n) = \Theta(n^2)$\\
+결국 running time은 $\Theta(n^2)$가 될 것이다.\\
+\\
+\\
+\subsection{ii) (5 point)}
+\\
+\begin{algorithmic}
+ \STATE QUICKSORT\_NEW(A,p,r)
+\end{algorithmic}
+  
+\begin{algorithmic}
+ \IF {$p < r$}
+ \STATE{(q, t) = PARTITION\_NEW(A, p, r)}
+ \STATE {QUICKSORT\_NEW(A, p, q-1)}
+ \STATE {QUICKSORT\_NEW(A, t+1, r)}
+\end{algorithmic}
+\\
+\\
+\subsection{iii) (7 point)}
+\\
+\begin{algorithmic}
+ \STATE PARTITION\_NEW(A,p,r)
+\end{algorithmic}
+  
+\begin{algorithmic}
+ \STATE x = A[p]
+ \STATE q = p
+ \STATE t = p
+ \FOR {j = p + 1 to r}
+ \IF {A[j] $<$ x}
+ \STATE t = t + 1
+ \STATE a = A[j]
+ \STATE A[j] = A[t]
+ \STATE A[t] = A[q]
+ \STATE A[q] = a
+ \STATE q = q + 1
+ \ELSIF {A[j] == x}
+ \STATE t = t + 1
+ \STATE exchange A[t] with A[j]
+ \ENDFOR
+ \RETURN (q, t)
+
+\end{algorithmic}
+
+\end{document}
