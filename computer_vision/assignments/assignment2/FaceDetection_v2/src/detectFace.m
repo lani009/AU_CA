@@ -11,12 +11,14 @@ face = im2double(imread('FaceImage.jpg'));
 
 %parameters
 stepsize = 2;
-threshold = 3000;
+threshold = 18;
+nmsval = 0.05;
 
 ret = detFace(face, img, stepsize);
 fprintf('The max output value is = %f\n',max(max(ret)));
 
-[y,x]=find(ret>threshold);
+%[y,x]=find(ret>threshold);
+[y,x]=find(0<ret & ret<threshold);
 value = ret(sub2ind(size(ret), y, x));
 boxes(:,1)=x*stepsize;
 boxes(:,2)=y*stepsize;
@@ -25,7 +27,7 @@ boxes(:,4)=y*stepsize+sy;
 boxes(:,5)=value;
 
 % Non-maximum suppression
-pick=nms(boxes, 0.5);
+pick=nms(boxes, nmsval);
 
 figure, imshow(img);
 hold on;
@@ -47,8 +49,9 @@ function [ret]=detFace(H, F, stepsize)
         v=0;
         for x=1:stepsize:(width_image-width_kernel)
             v=v+1;         
-            ret(u,v) = CrossCorrelation(H, F, y, x);
-            %ret(u,v) = EuclideanDistance(H, F, y, x);
+            %ret(u,v) = CrossCorrelation(H, F, y, x);
+            %ret(u,v) = ManhattanDistance(H, F, y, x);
+            ret(u,v) = EuclideanDistance(H, F, y, x);
         end
     end
     
