@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1620758270 "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.tex" "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.pdf" "Exercise 4" 1620758272
-  "./img/prim_algo-eps-converted-to.pdf" 1620638182 32131 36fec97cdc7c89f9e8c2189083e9abc6 ""
-  "Exercise 4.aux" 1620758272 414 9413942ab56e0029893b71f0bc5d8d2d "pdflatex"
-  "Exercise 4.tex" 1620758268 1921 9ac2fbf70ea12bec21856e17fecd8252 ""
+["pdflatex"] 1620964752 "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.tex" "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.pdf" "Exercise 4" 1620964759
+  "./img/prim_algo-eps-converted-to.pdf" 1620964749 30028 9c38e8d52052c3536152b10079d5cccb ""
+  "Exercise 4.aux" 1620964755 414 9413942ab56e0029893b71f0bc5d8d2d "pdflatex"
+  "Exercise 4.tex" 1620964730 1921 9ac2fbf70ea12bec21856e17fecd8252 ""
   "c:/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1616009321 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1616007709 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1616008399 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -109,12 +109,12 @@
   "c:/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1616012986 5211361 a2b81fa59c1cb10c93365d810323514d ""
   "c:/texlive/2020/texmf-var/web2c/pdftex/pdflatex.fmt" 1616013089 2706489 65e03a3e1d8b76f6a3bd5c5c3dc13dbd ""
   "c:/texlive/2020/texmf.cnf" 1616012953 713 e69b156964470283e0530f5060668171 ""
-  "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.aux" 1620758272 414 9413942ab56e0029893b71f0bc5d8d2d ""
-  "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.tex" 1620758268 1921 9ac2fbf70ea12bec21856e17fecd8252 ""
-  "img/prim_algo.eps" 1620638162 2152560 de07e5f2823d6987b8782c7ad1b4797c ""
+  "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.aux" 1620964755 414 9413942ab56e0029893b71f0bc5d8d2d ""
+  "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.tex" 1620964730 1921 9ac2fbf70ea12bec21856e17fecd8252 ""
+  "img/prim_algo.eps" 1620911980 2189117 3714a8e99df2a6586cd759b5e0df743b ""
   (generated)
-  "Exercise 4.log"
-  "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.pdf"
   "Exercise 4.pdf"
+  "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.pdf"
+  "Exercise 4.log"
   "d:/git/AU_CA/algorithm/assignments/assignment4/Exercise 4.log"
   "Exercise 4.aux"
