@@ -1,31 +1,20 @@
 function []=sel_turn()
     load('studentPMF.mat', 'studentPMF');
     [sizeX, sizeY] = size(studentPMF);
-    studentVec = zeros(sizeX * sizeY, 1);
-    overFiveVec = zeros(sizeX * sizeY, 1);
+    trashold = 5;
+    cleaningProb = 0; % 청소를 안할 확률
 
-    for i = 1 : sizeX
-        for j = 1 : sizeY
-            k = (i-1)*sizeX + j;
-            overFiveVec(k) = i + j;
-            if (~(k == 1))
-                studentVec(k) = studentPMF(i, j) + studentVec(k-1);
-            else
-                studentVec(k) = studentPMF(i, j);
+    for X = 1 : sizeX
+        for Y = 1 : sizeY
+            if (X + Y < trashold)
+                cleaningProb = cleaningProb + studentPMF(X, Y);
             end
         end
     end
 
-    studentRandom = rand(1, 20);
-
-    for i = 1 : size(studentRandom')
-        for j = 1 : sizeX * sizeY
-            if (studentRandom(i) <= studentVec(j))
-                if (overFiveVec(j) < 5)
-                    fprintf("%d\n", i);
-                end
-                break;
-            end
+    for studentI = 1 : 20
+        if (rand(1) < cleaningProb)
+            fprintf("%d\n", studentI);
         end
     end
 end
