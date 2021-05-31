@@ -24,14 +24,14 @@ public class SqlTest3 {
                 + "$$\n"
                 + "begin\n"
                 +     "delete from Apply where sID = Old.sID;\n"
-                +     "return null;\n"
+                +     "return null;"
                 + "end;\n"
                 + "$$\n"
                 +     "language 'plpgsql';\n"
                 + "create trigger R2\n"
                 +     "after delete on Student\n"
                 +     "for each row\n"
-                + "execute function apply_sid_cascade()"
+                + "execute procedure apply_sid_cascade()"
             );
 
             // Delete문 실행
@@ -65,7 +65,7 @@ public class SqlTest3 {
 
             // Trigger R4 생성
             stmt.executeUpdate(
-                "create function college_ignore_duplicate() returns trigger as\n"
+                  "create function college_ignore_duplicate() returns trigger as\n"
                 + "$$\n"
                 + "begin\n"
                 +     "IF exists(select * from College where cName = New.cName) THEN\n"
@@ -76,11 +76,11 @@ public class SqlTest3 {
                 + "end;\n"
                 + "$$\n"
                 +     "language 'plpgsql';\n"
-                + "create trigger R5\n"
+                + "create trigger R4\n"
                 +     "before insert\n"
                 +     "on College\n"
                 +     "for each row\n"
-                + "execute function college_ignore_duplicate()"
+                + "execute procedure college_ignore_duplicate()"
             );
 
             // Insert문 실행
@@ -134,7 +134,7 @@ public class SqlTest3 {
                 +     "IF (New.major = 'CS' or New.major = 'EE') THEN\n"
                 +         "insert into Apply values (New.sID, New.cName, New.major, null);\n"
                 +     "END IF;\n"
-                +     "return null;\n"
+                +     "return null;"
                 + "end;\n"
                 + "$$\n"
                 +     "language 'plpgsql';\n"
