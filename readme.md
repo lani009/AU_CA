@@ -2,6 +2,7 @@
 
 ## Computer Programming and practice
 컴퓨터프로그래밍 및 실습
+[컴퓨터프로그래밍 및 실습](./computer%20programming/)
 
 ## OOP Programming and practice
 객체지향프로그래밍 및 실습
