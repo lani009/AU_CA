@@ -1,0 +1,10 @@
+N = 5000
+
+t = 0 : 2*pi/3000 : 2*pi;
+dial0 = sin(2*pi*941*t)+sin(2*pi*1336*t);
+dial1 = sin(2*pi*697*t)+sin(2*pi*1209*t);
+dial2 = sin(2*pi*697*t)+sin(2*pi*1336*t);
+dial6 = sin(2*pi*770*t)+sin(2*pi*1477*t);
+dial9 = sin(2*pi*852*t)+sin(2*pi*1477*t);
+
+audiowrite('dtmf.wav', dial0, 3000);
