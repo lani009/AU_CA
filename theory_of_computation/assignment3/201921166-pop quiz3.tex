@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kotex}
+\begin{document}
+\begin{flushright}
+    201921166 정의철
+\end{flushright}
+\section{Exercise}
+Suppose L is regular. Then Pumping Lemma applies.
+Let n be the pumping constant. Choose w be any string in L with n left parentheses and n right parentheses.
+By Pumping Lemma, w can be factored into $xyz$ such that $|xy| \leq n$, $|y| > 0$ and, for all $i > 0$ $xy^iz \in L$.
+Since $|xy| \leq n$ and $|y| > 0$, the string y consists only of left parentheses and has at least one left parentheses.
+Consider $i=2$, then $xy^2z = xyyz \notin L$.
+Thus the string has to be hold more left parentheses than right parentheses.
+As a result, it's unbalanced, then we have obtained contradiction of the assumed regularity of L.
+Hence, L is not regular.
+\end{document}
