@@ -54,11 +54,11 @@ Im in /home/hwan
 
 ### Condition
 ```bash
- string=""
- if [[ -z "$string" ]]; then
-> echo "string is empty"
+$ string=""
+$ if [[ -z "$string" ]]; then
+>     echo "string is empty"
 > elif [[ -n "$string" ]]; then
-> echo "string is not empty"
+>     echo "string is not empty"
 > fi
 string is empty
 ```
@@ -129,69 +129,71 @@ $
 
 
 ### Examples
-    STR="/path/to/foo.cpp"
-    echo ${STR%.cpp}    	# /path/to/foo
-    echo ${STR%.cpp}.o  	# /path/to/foo.o
-    echo ${STR%/*}      	# /path/to
+```bash
+$ STR="/path/to/foo.cpp"
+$ echo ${STR%.cpp}    	# /path/to/foo
+$ echo ${STR%.cpp}.o  	# /path/to/foo.o
+$ echo ${STR%/*}      	# /path/to
 
-    echo ${STR##*.}     	# cpp (extension)
-    echo ${STR##*/}     	# foo.cpp (basepath)
+$echo ${STR##*.}     	# cpp (extension)
+$echo ${STR##*/}     	# foo.cpp (basepath)
 
-    echo ${STR#*/}      	# path/to/foo.cpp
-    echo ${STR##*/}     	# foo.cpp
+$ echo ${STR#*/}      	# path/to/foo.cpp
+$ echo ${STR##*/}     	# foo.cpp
 
-    echo ${STR/foo/bar} 	# /path/to/bar.cpp
-    STR="Hello world"
-    echo ${STR:6:5}   	# "world"
-    echo ${STR: -5:5}  	# "world"
+$ echo ${STR/foo/bar} 	# /path/to/bar.cpp
+$ STR="Hello world"
+$ echo ${STR:6:5}   	# "world"
+$ echo ${STR: -5:5}  	# "world"
 
-    SRC="/path/to/foo.cpp"
-    BASE=${SRC##*/}   	#=> "foo.cpp" (basepath)
-    DIR=${SRC%$BASE}  	#=> "/path/to/" (dirpath)
+$ SRC="/path/to/foo.cpp"
+$ BASE=${SRC##*/}   	#=> "foo.cpp" (basepath)
+$ DIR=${SRC%$BASE}  	#=> "/path/to/" (dirpath)
+```
 
 ## Loop & Function
 
 ### Basic loop
 ```bash
-for i in /etc/rc.*; do
-  echo $i
-done
+$ for i in /etc/rc.*; do
+>     echo $i
+> done
 ```
 
 ### C-like for loop
 ```bash
-for ((i = 0 ; i < 100 ; i++)); do
-  echo $i
-done
+$ for ((i = 0 ; i < 100 ; i++)); do
+>     echo $i
+> done
 ```
 
 ### Ranges loop
 ```bash
-for i in {5..50..5}; do
-    echo "Welcome $i"
-done
+$ for i in {5..50..5}; do
+>     echo "Welcome $i"
+> done
 ```
 
 ### Read Line loop
 ```bash
-cat file.txt | while read line; do
-  echo $line
-done
+$ cat file.txt | while read line; do
+>     echo $line
+> done
 ```
 
 ### Function Definition
 ```bash
-myfunc() {
-    echo "hello $1"
-}
+$ myfunc() {
+>     echo "hello $1"
+> }
 ```
 
 ### Same as above (alternate syntax)
 ```bash
-function myfunc() {
-    echo "hello $1"
-}
-myfunc "John"
+$ function myfunc() {
+>     echo "hello $1"
+> }
+$ myfunc "John"
 ```
 
 ### Argument
@@ -205,8 +207,8 @@ myfunc "John"
 
 ### Exec condition
 ```bash
-if ping -c 1 google.com; then
-> echo "working internet connection"
+$ if ping -c 1 google.com; then
+>     echo "working internet connection"
 > fi
 ```
 
@@ -247,83 +249,83 @@ if ping -c 1 google.com; then
 
 ### Define Array
 ```bash
-Fruits=('Apple' 'Banana' 'Orange')
-Fruits[0]="Apple"
-Fruits[1]="Banana"
-Fruits[2]="Orange"
+$ Fruits=('Apple' 'Banana' 'Orange')
+$ Fruits[0]="Apple"
+$ Fruits[1]="Banana"
+$ Fruits[2]="Orange"
 ```
 
 ### Operation
 ```bash
-Fruits=("${Fruits[@]}" "Melon") # Push
-Fruits+=('Watermelon')          # Also Push
-Fruits=( ${Fruits[@]/Ap*/} )    # Remove by regex match
-unset Fruits[2]                 # Remove one item
-Fruits=("${Fruits[@]}")         # Duplicate
-Fruits=("${Fruits[@]}" "${Veggies[@]}") # Concatenate
-lines=(`cat "logfile"`)         # Read from file# Interation
-for i in "${arrayName[@]}"; do
-  echo $i
-done
+$ Fruits=("${Fruits[@]}" "Melon") # Push
+$ Fruits+=('Watermelon')          # Also Push
+$ Fruits=( ${Fruits[@]/Ap*/} )    # Remove by regex match
+$ unset Fruits[2]                 # Remove one item
+$ Fruits=("${Fruits[@]}")         # Duplicate
+$ Fruits=("${Fruits[@]}" "${Veggies[@]}") # Concatenate
+$ lines=(`cat "logfile"`)         # Read from file# Interation
+$ for i in "${arrayName[@]}"; do
+>   echo $i
+> done
 ```
 
 ### Define Dictionary
 ```bash
-declare -A sounds
-sounds[dog]="bark"
-sounds[cow]="moo"
-sounds[bird]="tweet"
-sounds[wolf]="howl"
+$ declare -A sounds
+$ sounds[dog]="bark"
+$ sounds[cow]="moo"
+$ sounds[bird]="tweet"
+$ sounds[wolf]="howl"
 ```
 
 ### Example
 ```bash
-echo ${sounds[dog]} # Dog's sound
-echo ${sounds[@]}   # All values
-echo ${!sounds[@]}  # All keys
-echo ${#sounds[@]}  # Number of elements
-unset sounds[dog]   # Delete dog
+$ echo ${sounds[dog]} # Dog's sound
+$ echo ${sounds[@]}   # All values
+$ echo ${!sounds[@]}  # All keys
+$ echo ${#sounds[@]}  # Number of elements
+$ unset sounds[dog]   # Delete dog
 ```
 
 ### Iteration over value
 ```bash
-for val in "${sounds[@]}"; do
-  echo $val
-done
+$ for val in "${sounds[@]}"; do
+>   echo $val
+> done
 ```
 
 ### Iterate over keys
 ```bash
-for key in "${!sounds[@]}"; do
-  echo $key
-done
+$ for key in "${!sounds[@]}"; do
+>   echo $key
+> done
 ```
 
 ## Options & Glob Options
 
 ### Options
 ```bash
-set -o noclobber  # Avoid overlay files (echo "hi" > foo)
-set -o errexit    # Used to exit upon error, avoiding cascading errors
-set -o pipefail   # Unveils hidden failures
-set -o nounset    # Exposes unset variables
+$ set -o noclobber  # Avoid overlay files (echo "hi" > foo)
+$ set -o errexit    # Used to exit upon error, avoiding cascading errors
+$ set -o pipefail   # Unveils hidden failures
+$ set -o nounset    # Exposes unset variables
 ```
 
 ### Glob options
 ```bash
-shopt -s nullglob    # Non-matching globs are removed  ('*.foo' => '')
-shopt -s failglob    # Non-matching globs throw errors
-shopt -s nocaseglob  # Case insensitive globs
-shopt -s dotglob     # Wildcards match dotfiles ("*.sh" => ".foo.sh")
-shopt -s globstar    # Allow ** for recursive matches ('lib/**/*.rb' => 'lib/a/b/c.rb')
+$ shopt -s nullglob    # Non-matching globs are removed  ('*.foo' => '')
+$ shopt -s failglob    # Non-matching globs throw errors
+$ shopt -s nocaseglob  # Case insensitive globs
+$ shopt -s dotglob     # Wildcards match dotfiles ("*.sh" => ".foo.sh")
+$ shopt -s globstar    # Allow ** for recursive matches ('lib/**/*.rb' => 'lib/a/b/c.rb')
 ```
 
 ## History
 
 ### Command
 ```bash
-history		            # Show history
-shopt -s histverify	    # Don’t execute expanded result immediately
+$ history		            # Show history
+$ shopt -s histverify	    # Don’t execute expanded result immediately
 ```
 ### Operation
     !!	                Execute last command again
@@ -365,17 +367,17 @@ $ where ls
 
 ### Trap errors
 ```bash
-trap 'echo Error at about $LINENO' ERR
+$ trap 'echo Error at about $LINENO' ERR
 ```
 or
 ```bash
-traperr() {
-  echo "ERROR: ${BASH_SOURCE[1]} at about ${BASH_LINENO[0]}"
-}
+$ traperr() {
+>   echo "ERROR: ${BASH_SOURCE[1]} at about ${BASH_LINENO[0]}"
+> }
 ```
 ```bash
-set -o errtrace
-trap traperr ERR
+$ set -o errtrace
+$ trap traperr ERR
 ```
 
 ### Subshells
@@ -418,13 +420,19 @@ $ cd ..
 $ cat <<END
 > Hello
 > END
-# Here Strings
+```
+
+### Here Strings
+```bash
 $ ./a.out <<<"200 300 400"
-# Reading Input
-echo -n "Proceed? [y/n]: "
-read ans
-echo $ans
-read -n 1 ans
+```
+
+### Reading Input
+```bash
+$ echo -n "Proceed? [y/n]: "
+$ read ans
+$ echo $ans
+$ read -n 1 ans
 ```
 
 ### Redirection
