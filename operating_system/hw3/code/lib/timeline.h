@@ -5,10 +5,11 @@
 /* 최대 시뮬레이션 가능 시간(ms) */
 #define TIMEMAX 100
 
-#include <stdio.h>
+#include <stdbool.h>
 #include <sys/types.h>
 #include "process.h"
+
 void init_timeline(Process *process_array, size_t length);
-Process *get_process_in_time(size_t time);
-int is_done(size_t time);
+Process *get_process_in_time(int32_t time);
+bool is_done(int32_t time);
 #endif

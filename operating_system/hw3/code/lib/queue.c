@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-ssize_t front = -1;
-ssize_t rear = -1;
+int32_t front = -1;
+int32_t rear = -1;
 Process *ready_queue[MAX_READY_QUEUE];
 
 /*
@@ -52,18 +52,18 @@ Process **queue_as_array()
 /**
  * 해당 pid의 Process를 반환하고 queue에서 삭제한다.
  */
-Process *dispatch_process_by_pid(size_t pid)
+Process *dispatch_process_by_pid(int32_t pid)
 {
     Process *process = NULL;
     size_t queue_len = get_queue_size();
 
-    for (size_t i = front + 1; i < front + 1 + queue_len; i++)
+    for (int32_t i = front + 1; i < front + 1 + queue_len; i++)
     {
         if (ready_queue[i % MAX_READY_QUEUE]->pid == pid)
         {
             process = ready_queue[i % MAX_READY_QUEUE];
-            size_t finish_condition = rear < front ? rear + MAX_READY_QUEUE : rear;
-            for (size_t j = i; j < finish_condition; j++)
+            int32_t finish_condition = rear < front ? rear + MAX_READY_QUEUE : rear;
+            for (int32_t j = i; j < finish_condition; j++)
             {
                 ready_queue[j % MAX_READY_QUEUE] = ready_queue[(j + 1) % MAX_READY_QUEUE];
             }

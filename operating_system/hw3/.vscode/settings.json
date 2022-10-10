@@ -7,6 +7,11 @@
         "vector": "c",
         "queue": "c",
         "cstdio": "c",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "stdbool.h": "c",
+        "types.h": "c",
+        "process.h": "c",
+        "varargs.h": "c",
+        "stdarg.h": "c"
     }
 }

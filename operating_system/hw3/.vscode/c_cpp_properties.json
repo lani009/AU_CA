@@ -22,7 +22,8 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true
             },
-            "compilerArgs": []
+            "compilerArgs": [],
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

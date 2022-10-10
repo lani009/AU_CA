@@ -2,8 +2,8 @@
 
 #ifndef QUEUE_H
 #define QUEUE_H
-#include "process.h"
 #include <sys/types.h>
+#include "process.h"
 
 /* Queue의 최대 길이 */
 #define MAX_READY_QUEUE 100
@@ -12,7 +12,7 @@ void offer(Process *value);
 Process *poll();
 void init_queue();
 Process **queue_as_array();
-Process *dispatch_process_by_pid(size_t pid);
+Process *dispatch_process_by_pid(int32_t pid);
 size_t get_queue_size();
 
 #endif
